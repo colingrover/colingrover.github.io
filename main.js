@@ -9,6 +9,9 @@ function setup() {
 
 function draw() {
 	redoSetup();
+	if (mouseIsPressed) {
+		balltoMouse();
+	}
 	mouseInteraction();
 	ball.draw();
 }
@@ -28,7 +31,7 @@ function redoSetup () {
 	}
 }
 
-function mouseInteraction () {
+function balltoMouse () {
 	if (mouseIsPressed) {
 		ball.x = mouseX;
 		ball.y = mouseY;
@@ -36,4 +39,9 @@ function mouseInteraction () {
 		ball.yVelocity = 0.5*(mouseY-pmouseY);
 
 	}
+}
+
+
+function touchMoved() {
+	ballToMouse();
 }
