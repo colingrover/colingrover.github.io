@@ -32,13 +32,10 @@ function redoSetup () {
 }
 
 function balltoMouse () {
-	if (mouseIsPressed) {
-		ball.x = mouseX;
-		ball.y = mouseY;
-		ball.xVelocity = 0.5*(mouseX-pmouseX);
-		ball.yVelocity = 0.5*(mouseY-pmouseY);
-
-	}
+	ball.x = mouseX;
+	ball.y = mouseY;
+	ball.xVelocity = 0.5*(mouseX-pmouseX);
+	ball.yVelocity = 0.5*(mouseY-pmouseY);
 }
 
 
