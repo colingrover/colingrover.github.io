@@ -4,7 +4,8 @@ function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(228, 27, 90);
 	//noStroke();
-	ball = new Ball (canvasWidth/2, canvasHeight/2, 30);
+	ball = new Ball (canvasWidth/2, canvasHeight/4, 30);
+	ball.xVelocity = canvasWidth/100;
 }
 
 function draw() {
