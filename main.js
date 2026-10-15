@@ -2,6 +2,7 @@ const navBarHeight = 46;
 let bgColour;
 let canvasWidth;
 let canvasHeight;
+let physicsMode = false;
 
 function setup() {
 	canvasWidth = windowWidth;
@@ -13,7 +14,6 @@ function setup() {
 
 	//noStroke();
 	ball = new Ball (canvasWidth/2, canvasHeight/4, 15);
-	ball.vel.x = canvasWidth/100;
 }
 
 function draw() {
@@ -24,11 +24,11 @@ function draw() {
 	}
 
 	mouseInteraction();
-	ball.draw(canvasWidth, canvasHeight);
+	ball.draw(canvasWidth, canvasHeight, physicsMode);
 }
 
 function mouseInteraction () {
-	if (mouseIsPressed) {
+	if (mouseIsPressed && mouseY > 0) {
 		ball.pos.x = mouseX;
 		ball.pos.y = mouseY;
 		ball.vel.x = 0.5*(mouseX-pmouseX);
@@ -41,4 +41,8 @@ function windowResized() {
 	canvasHeight = windowHeight - navBarHeight;
 	resizeCanvas(windowWidth, windowHeight - navBarHeight);
 	background(bgColour);
+}
+
+function togglePhysicsMode(checked) {
+    physicsMode = checked;
 }

@@ -32,6 +32,29 @@ nav li {
   height: 100%;
 }
 
+/* Push the physics toggle to the far right */
+nav ul li.physics-toggle {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    color: white;
+}
+
+.physics-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.physics-toggle input {
+    margin: 0;
+    cursor: pointer;
+}
+
 nav ul li a {
   display: flex;
   align-items: center;

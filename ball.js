@@ -9,26 +9,27 @@ class Ball {
   constructor (x, y, radius) {
     this.pos = createVector(x, y);
     this.prevPos = this.pos.copy();
-    this.vel = createVector(0, 0);
+    this.vel = p5.Vector.random2D().mult(20);
     this.radius = radius;
     this.mass = PI * (this.radius**2);
   }
 
   // Oversimplified collision detection (especially boundary handling)
-  collisions(canvasWidth, canvasHeight) {
+  collisions(canvasWidth, canvasHeight, physicsMode) {
     const xMin = this.radius;
     const xMax = canvasWidth - this.radius;
     const yMax = canvasHeight - this.radius;
+    const yMin = this.radius;
 
     // Wall collision
     if (this.pos.x + this.vel.x > xMax || this.pos.x + this.vel.x < xMin) {
       // Flip x velocity
-      this.vel.x *= -Ball.RESTITUTION_COEFFICIENT;
+      this.vel.x *= -(physicsMode ? Ball.RESTITUTION_COEFFICIENT : 1);
     }
 
     // Floor collision
-    if (this.pos.y + this.vel.y > yMax) {
-      this.vel.y *= -Ball.RESTITUTION_COEFFICIENT;
+    if (this.pos.y + this.vel.y > yMax || (!physicsMode && this.pos.y < yMin)) {
+      this.vel.y *= -(physicsMode ? Ball.RESTITUTION_COEFFICIENT : 1);
     }
 
     // Lazy boundary handling
@@ -40,6 +41,8 @@ class Ball {
 
     if (this.pos.y > yMax) {
       this.pos.y = yMax;
+    } else if (!physicsMode && this.pos.y < yMin) {
+      this.pos.y = yMin;
     }
   }
 
@@ -65,10 +68,12 @@ class Ball {
     this.vel.add(netAcceleration);
   }
 
-  draw(canvasWidth, canvasHeight) {
+  draw(canvasWidth, canvasHeight, physicsMode) {
     for (let i=0; i<substeps; i++) {
-      this.applyForces(substepLength);
-      this.collisions(canvasWidth, canvasHeight);
+      if (physicsMode) {
+        this.applyForces(substepLength);
+      }
+      this.collisions(canvasWidth, canvasHeight, physicsMode);
       this.pos.add(p5.Vector.mult(this.vel, substepLength));
     }
 
