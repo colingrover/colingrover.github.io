@@ -13,7 +13,7 @@ function setup() {
 
 	//noStroke();
 	ball = new Ball (canvasWidth/2, canvasHeight/4, 15);
-	ball.xVelocity = canvasWidth/100;
+	ball.vel.x = canvasWidth/100;
 }
 
 function draw() {
